@@ -1,9 +1,6 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
-  <title>Andrew Priddle-Higson Homepage</title>
-  <link rel="stylesheet" type="text/css" href="/s0674512/homepage.css" />
+  <title>TIc Tac Toe</title>
   <script type="text/javascript" src="tttCanvas.js">
   </script>
   <style type="text/css">
@@ -12,12 +9,6 @@
   </style>
 </head>
 <body onload="initBoard();">
-
-<?php
- 
-require '../../../menu.php';
-
-?>
 
 <div id="content">
 <canvas id="tttboard" width="300" height="300">
