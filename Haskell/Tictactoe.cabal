@@ -1,0 +1,9 @@
+Name:                   TicTacToe
+Version:                0.1
+Description:            A TicTacToe game with an AI player in Haskell
+Maintainer:             andrewgph@googlemail.com
+Build-Depends:          base, haskell98
+Build-Type:             Simple
+Executable:             tictactoe
+Main-is:                Main.hs
+ghc-options:
