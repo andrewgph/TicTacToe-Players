@@ -1,0 +1,91 @@
+<html>
+<head>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="tictactoe.js"></script>
+<script type="text/javascript" src="board.js"></script>
+<script type="text/javascript">
+var tictactoe_game = new TicTacToe(),
+	playing = true;
+
+$(document).ready(function() {
+	initBoard();
+});
+
+function showWinner(winner) {
+	switch(winner) {
+		case 1:
+			$("#result").html("You have won!");
+			break;
+		case -1:
+			$("#result").html("You have lost!");
+			break;
+		case 0:
+			$("#result").html("A draw ... how dull.");
+			break;
+	}
+}
+
+function makeMove(x,y) {
+	var ai_move;
+
+	if(!playing) {
+		$("#result").html("Please wait for your move.");
+		return;
+	}
+
+	playing = false;
+
+	var board_x = Math.floor(x/100);
+	var board_y = Math.floor(y/100);
+
+	tictactoe_game.make_player_move(board_x,board_y);
+	displayBoard(tictactoe_game.get_board(),"tttboard");
+
+	if(tictactoe_game.is_terminal()) {
+		showWinner(tictactoe_game.get_score());
+		return;
+	}
+
+	$("#result").html("Thinking of a move ...");
+	tictactoe_game.make_ai_move();
+	displayBoard(tictactoe_game.get_board(),"tttboard");
+
+	if(tictactoe_game.is_terminal()) {
+		showWinner(tictactoe_game.get_score());
+		return;
+	}
+
+	playing = true;
+
+	$("#result").html("Your move");
+
+}
+
+function initBoard() {
+	$("#tttboard").click(function(e) {
+		e.stopImmediatePropagation();
+		makeMove(e.clientX-$(this).offset().left,e.clientY-$(this).offset().top);
+	});
+	displayBoard(tictactoe_game.get_board(),"tttboard");
+	$("#result").html("Your move");
+}
+
+</script>
+<style type="text/css">
+  canvas {display:block;margin:0 auto; margin-top:100px}
+  .feedback { text-align:center; margin-top:25px }
+</style>
+</head>
+<body onload="initBoard();">
+
+<canvas id="tttboard" width="300" height="300">
+Your browser doesn't display the canvas tag
+</canvas>
+
+<div id="result" class="feedback">
+</div>
+
+
+
+</body>
+</html>
