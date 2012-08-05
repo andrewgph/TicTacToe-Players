@@ -38,7 +38,11 @@ function makeMove(x,y) {
 	var board_x = Math.floor(x/100);
 	var board_y = Math.floor(y/100);
 
-	tictactoe_game.make_player_move(board_x,board_y);
+	if (!tictactoe_game.make_player_move(board_x,board_y)) {
+		$("#result").html("Please make a valid move.");
+		playing = true;
+		return;
+	}
 	displayBoard(tictactoe_game.get_board(),"tttboard");
 
 	if(tictactoe_game.is_terminal()) {

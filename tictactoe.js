@@ -16,7 +16,13 @@ TicTacToe.prototype.get_board = function() {
 };
 
 TicTacToe.prototype.make_player_move = function(i,j) {
+	if (!(0 <= i && i <= 2 && 0 <= j && j <= 2) ||
+		this.board[i][j] != '-') {
+		return false;
+	}
+
 	this.board[i][j] = 'x';
+	return true;
 };
 
 TicTacToe.prototype.make_ai_move = function() {
@@ -58,9 +64,9 @@ TicTacToe.prototype.get_score = function() {
 	lines.push(board[0]);
 	lines.push(board[1]);
 	lines.push(board[2]);
-	lines.push([board[0][0],board[0][1],board[0][2]]);
-	lines.push([board[1][0],board[1][1],board[1][2]]);
-	lines.push([board[2][0],board[2][1],board[2][2]]);
+	lines.push([board[0][0],board[1][0],board[2][0]]);
+	lines.push([board[0][1],board[1][1],board[2][1]]);
+	lines.push([board[0][2],board[1][2],board[2][2]]);
 	lines.push([board[0][0],board[1][1],board[2][2]]);
 	lines.push([board[2][0],board[1][1],board[0][2]]);
 
