@@ -1,3 +1,6 @@
 Tictactoe players implemented in several programming languages using minimax algorithm with alpha-beta pruning.
 
 These were written to gain a little experience with and compare each language by implementing a small but reasonably difficult algorithm.
+
+The JavaScript version is available on the github page for the project:
+http://andrewgph.github.com/TicTacToe-Players
