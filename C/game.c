@@ -89,7 +89,7 @@ void makeComputerMove(struct game *state)
   while (nextstates != NULL)
 	{
 	  minimaxvalue = alphabeta(nextstates->state,-2,2);
-	  if (minimaxvalue < minstatevalue) {
+	  if (minimaxvalue <= minstatevalue) {
 		minstatevalue = minimaxvalue;
 		nextgame = nextstates->state;
 	  }
