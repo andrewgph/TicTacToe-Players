@@ -52,7 +52,7 @@ char checkRows(char *board)
 
   for (i = 0; i < 3; i++) {
     if ((board[3*i] == ' ') || (board[(3*i)+1] == ' ') || (board[(3*i)+2] == ' ')) areFreeSpaces = 1;
-	if ((board[3*i] == board[(3*i)+1]) && (board[(3*i)+1] == board[(3*i)+2])) return board[3*i];
+    if ((board[3*i] != ' ') && (board[3*i] == board[(3*i)+1]) && (board[(3*i)+1] == board[(3*i)+2])) return board[3*i];
   }
 
   if (areFreeSpaces == 1) {
@@ -66,8 +66,8 @@ char checkRows(char *board)
 char checkDiags(char *board)
 {
 
-  if ((board[0] == board[4]) && (board[4] == board[8])) return board[0];
-  if ((board[2] == board[4]) && (board[4] == board[6])) return board[2];
+  if ((board[0] != ' ') && (board[0] == board[4]) && (board[4] == board[8])) return board[0];
+  if ((board[2] != ' ') && (board[2] == board[4]) && (board[4] == board[6])) return board[2];
   return ' ';
 
 }
@@ -78,7 +78,7 @@ char checkCols(char *board)
   int i;
 
   for (i = 0; i < 3; i++) {
-	if ((board[i] == board[i+3]) && (board[i+3] == board[i+6])) return board[i];
+    if ((board[i] != ' ') && (board[i] == board[i+3]) && (board[i+3] == board[i+6])) return board[i];
   }
 
   return ' ';
