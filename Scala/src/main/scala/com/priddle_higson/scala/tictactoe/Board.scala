@@ -55,7 +55,7 @@ class Board(board: Map[Board.Square, Player]) {
     checkLines(getRows ++ getDiagonals ++ getColumns)
   }
 
-  def checkLines(lines : List[List[Board.Square]]) : Option[Player] = {
+  private def checkLines(lines : List[List[Board.Square]]) : Option[Player] = {
     lines.filter((line) => {
       !isSquareFree(line(0)) &&
         ((board get line(0)) == (board get line(1))) && ((board get line(0)) == (board get line(2)))

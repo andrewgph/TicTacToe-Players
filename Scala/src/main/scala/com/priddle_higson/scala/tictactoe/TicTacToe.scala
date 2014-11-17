@@ -75,7 +75,7 @@ class TicTacToe(currentPlayer : Player, board : Board) extends AlphaBetaGame[Tic
   /**
    * Get the next possible games for either player
    */
-  def nextGames: List[TicTacToe] = {
+  def nextGames: Seq[TicTacToe] = {
     board.getFreeSquares().map((square) =>
       new TicTacToe(nextPlayer(currentPlayer), board.makeMove(square, currentPlayer)))
   }
@@ -98,7 +98,7 @@ class TicTacToe(currentPlayer : Player, board : Board) extends AlphaBetaGame[Tic
   }
 
   def isValidMove(square : Board.Square) : Boolean = {
-    board.isSquareFree(square)
+    Board.squareInBoard(square) && board.isSquareFree(square)
   }
 
   override def toString() : String = {
