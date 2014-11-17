@@ -6,6 +6,9 @@ class BoardTest extends FlatSpec with Matchers {
 
   val allSquares = for (x <- 1 to 3; y <- 1 to 3) yield (x,y)
   val fullBoardMap = allSquares.map((s) => s -> Player.Cross).toMap
+  val drawnBoardMap = Map((1,1) -> Player.Nought, (1,2) -> Player.Cross, (1,3) -> Player.Nought,
+    (2,1) -> Player.Nought, (2,2) -> Player.Cross, (2,3) -> Player.Cross,
+    (3,1) -> Player.Cross, (3,2) -> Player.Nought, (3,3) -> Player.Cross)
 
   "A Board" should "return all squares from getFreeSquares for or an empty board" in {
     val board = new Board()
@@ -63,10 +66,37 @@ class BoardTest extends FlatSpec with Matchers {
   }
 
   "A Board" should "return isTerminal true for a full board" in {
-    val board = new Board(fullBoardMap)
+    val board = new Board(drawnBoardMap)
     board.isTerminal() should be (true)
   }
 
+  "A Board" should "return Player.Cross on hasWinner for a board full of crosses" in {
+    val board = new Board(fullBoardMap)
+    board.hasWinner().get should be (Player.Cross)
+  }
 
+  "A Board" should "return None on hasWinner for a drawn board" in {
+    val board = new Board(drawnBoardMap)
+    board.hasWinner() should be (None)
+  }
 
+  "A Board" should "return None on hasWinner for an empty board" in {
+    val board = new Board()
+    board.hasWinner() should be (None)
+  }
+
+  "A Board" should "return Player.Cross on hasWinner for a board with a row win" in {
+    val board = new Board(Map((1,1) -> Player.Cross, (1,2) -> Player.Cross, (1,3) -> Player.Cross))
+    board.hasWinner().get should be (Player.Cross)
+  }
+
+  "A Board" should "return Player.Cross on hasWinner for a board with a column win" in {
+    val board = new Board(Map((1,1) -> Player.Cross, (2,1) -> Player.Cross, (3,1) -> Player.Cross))
+    board.hasWinner().get should be (Player.Cross)
+  }
+
+  "A Board" should "return Player.Cross on hasWinner for a board with a diagonal win" in {
+    val board = new Board(Map((1,1) -> Player.Cross, (2,2) -> Player.Cross, (3,3) -> Player.Cross))
+    board.hasWinner().get should be (Player.Cross)
+  }
 }
