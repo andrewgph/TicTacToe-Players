@@ -10,7 +10,7 @@ trait AlphaBetaGame[Self <: AlphaBetaGame[Self]] {
 
   def evaluation : Double
 
-  def nextGames : List[Self]
+  def nextGames : Seq[Self]
 
   def isMaxTurn : Boolean
 
@@ -34,22 +34,22 @@ trait AlphaBetaGame[Self <: AlphaBetaGame[Self]] {
       return (evaluation, Some(getSelf))
     }
     var alpha = alpha_
-    nextGames.foldRight((minEvaluationValue, None : Option[Self]))((game, res) => {
-      var v = res._1
-      var bestGame = res._2
-      if (v >= beta) {
-        return (v, bestGame)
-      }
+    var v = minEvaluationValue
+    var bestGame : Option[Self] = None
+    for (game <- nextGames) {
       val (min, _) = game.minValue(alpha, beta)
-      if (min >= v) {
+      if (v < min) {
         v = min
         bestGame = Some(game)
+      }
+      if (v >= beta) {
+        return (v, bestGame)
       }
       if (v > alpha) {
         alpha = v
       }
-      (v, bestGame)
-    })
+    }
+    (v, bestGame)
   }
 
   def minValue(alpha : Double, beta_ : Double) : (Double, Option[Self]) = {
@@ -57,22 +57,22 @@ trait AlphaBetaGame[Self <: AlphaBetaGame[Self]] {
       return (evaluation, Some(getSelf))
     }
     var beta = beta_
-    nextGames.foldRight((maxEvaluationValue, None : Option[Self]))((game, res) => {
-      var v = res._1
-      var bestGame = res._2
-      if (v <= alpha) {
-        return (v, bestGame)
-      }
+    var v = maxEvaluationValue
+    var bestGame : Option[Self] = None
+    for (game <- nextGames) {
       val (max, _) = game.maxValue(alpha, beta)
-      if (max <= v) {
+      if (v > max) {
         v = max
         bestGame = Some(game)
       }
-      if (v < beta) {
+      if (v <= alpha) {
+        return (v, bestGame)
+      }
+      if (v > beta) {
         beta = v
       }
-      (v, bestGame)
-    })
+    }
+    (v, bestGame)
   }
 
 }
